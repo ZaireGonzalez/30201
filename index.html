@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Ventas Agrícolas</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        /* Formulario */
+        form {
+            background: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        form input, form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        form input:focus, form button:focus {
+            outline: none;
+            border-color: #28a745;
+        }
+
+        form button {
+            background-color: #28a745;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+
+        /* Tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table thead {
+            background-color: #28a745;
+            color: white;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tbody tr:nth-child(odd) {
+            background-color: #f3f3f3;
+        }
+
+        table tbody tr:hover {
+            background-color: #e9f7ea;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            form input, form button {
+                font-size: 0.9rem;
+            }
+
+            table th, table td {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>Registro de Ventas Agrícolas</header>
+    <main>
+        <h1>Formulario de Registro</h1>
+        <!-- Formulario para registrar ventas -->
+        <form id="form-venta">
+            <label for="producto">Producto</label>
+            <input type="text" id="producto" name="producto" placeholder="Ej: Tomate" required>
+
+            <label for="cantidad">Cantidad (kg)</label>
+            <input type="number" id="cantidad" name="cantidad" placeholder="Ej: 20" required>
+
+            <label for="precio">Precio ($)</label>
+            <input type="number" id="precio" name="precio" placeholder="Ej: 300" required>
+
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="cliente">Cliente</label>
+            <input type="text" id="cliente" name="cliente" placeholder="Ej: Pedro Gómez" required>
+
+            <button type="submit">Registrar Venta</button>
+        </form>
+
+        <h2>Lista de Ventas Registradas</h2>
+        <!-- Tabla para mostrar las ventas -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad (kg)</th>
+                    <th>Precio ($)</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-ventas">
+                <!-- Aquí se añadirán las filas dinámicamente -->
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        // Selección de elementos
+        const form = document.getElementById('form-venta');
+        const tablaVentas = document.getElementById('tabla-ventas');
+
+        // Evento al enviar el formulario
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evita el envío por defecto
+
+            // Capturar datos del formulario
+            const producto = document.getElementById('producto').value;
+            const cantidad = document.getElementById('cantidad').value;
+            const precio = document.getElementById('precio').value;
+            const fecha = document.getElementById('fecha').value;
+            const cliente = document.getElementById('cliente').value;
+
+            // Validar campos
+            if (!producto || !cantidad || !precio || !fecha || !cliente) {
+                alert('Por favor, complete todos los campos.');
+                return;
+            }
+
+            // Crear fila nueva
+            const nuevaFila = `
+                <tr>
+                    <td>${producto}</td>
+                    <td>${cantidad} kg</td>
+                    <td>$${precio}</td>
+                    <td>${fecha}</td>
+                    <td>${cliente}</td>
+                </tr>
+            `;
+
+            // Insertar fila en la tabla
+            tablaVentas.innerHTML += nuevaFila;
+
+            // Limpiar formulario
+            form.reset();
+        });
+    </script>
+</body>
+</html>
